@@ -109,15 +109,23 @@ else:
     st.markdown("""We regret to inform you that based on the current profile, we can't offer you a quote.""")
     st.info("Please contact our support team at fiqhaks.company@gmail.com")
 
-
 hide_streamlit_style = """
-                        <style>
-                        #Mainmenu {visibility:hidden;}
-                        .stAppDeployButton {display:none;}
-                        [data-testid="stHeader"] {background-color: rgba(0,0,0,0);}
-                        footer {visibility: hidden;}
-                        [data-testid="stSidebarNav"] {visibility: visible;}
-                        [data-testid="collapsedControl"] {visibility: visible;}
-                        <style>
-                      """
+            <style>
+            
+            #MainMenu {visibility: hidden;}
+            .stAppDeployButton {display: none;}
+            [data-testid="stToolbar"] {visibility: hidden !important;}
+            
+            header {background-color: rgba(0,0,0,0) !important;}
+            
+            footer {visibility: hidden;}
+    
+            [data-testid="collapsedControl"] {
+                visibility: visible !important;
+                color: white !important;
+                background-color: rgba(255,255,255,0.1);
+                border-radius: 50%;
+            }
+            </style>
+            """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
