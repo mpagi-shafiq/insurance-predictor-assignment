@@ -94,7 +94,7 @@ if final_price > 0:
         st.success(f"Excellent choice! Your {selected_plan} plan application is now being processed.")
         
         # Download logic
-        summary = f"FiqHaks Predictor Receipt\nPlan: {selected_plan}\nAge: {age}\nBMI: {bmi}\nSmoker: {smoker}\nTotal: UGX{ugx_price:,.0f}"
+        summary = f"FiqHaks Predictor Receipt\nPlan: {user_name:}\n{selected_plan}\nAge: {age}\nBMI: {bmi}\nSmoker: {smoker}\nTotal: UGX{ugx_price:,.0f}"
         st.download_button("Download Summary", summary, file_name="my_Receipt.txt")
 
 else:
