@@ -4,7 +4,7 @@ import pandas as pd
 import pickle
 
 # Page Configuration
-st.set_page_config(page_title="FiqHaks Predictor", page_icon="FiqHaks logo.png", layout="wide")
+st.set_page_config( initial_sidebar_state="expanded",page_title="FiqHaks Predictor", page_icon="FiqHaks logo.png", layout="wide")
 
 # Load Model
 @st.cache_resource
