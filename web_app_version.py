@@ -113,11 +113,12 @@ else:
 hide_streamlit_style = """
                         <style>
                         #Mainmenu {visibility:hidden;}
-                        header {background-color: rgba(0,0,0,0);}
-                        footer {visibility:hidden;}
                         .stAppDeployButton {display:none;}
-                        [data-testid="stSidebarNav"] {visibility: visible;}
-                        [data-testid="collapsedControl"] {visibility: visible;}
+                        [data-testid="stHeader"] {background-color: rgba(0,0,0,0);}
+                        [data-testid="stToolbar"] {visibility: hidden;}
+                        footer {visibility: hidden;}
+                        [data-testid="stSidebarNav"] {visibility: visible !important;}
+                        [data-testid="collapsedControl"] {visibility: visible !important; color:white;}
                         <style>
                       """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
