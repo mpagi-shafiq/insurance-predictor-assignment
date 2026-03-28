@@ -109,6 +109,6 @@ hide_streamlit_style = """
                         header {visibility:hidden;}
                         footer {visibility:hidden;}
                         .stAppDeployButton {display:none;}
-                        <style>
+                        </style>
                       """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
