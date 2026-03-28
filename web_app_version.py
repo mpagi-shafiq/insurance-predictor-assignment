@@ -17,7 +17,7 @@ model = load_model()
 # Sidebar Inputs
 st.sidebar.header("User Profile")
 st.sidebar.image("FiqHaks logo.png", use_container_width=True)
-user_name = st.text_input("Enter your name:",placeholder = "Full name")
+user_name = st.sidebar.text_input("Enter your name:",placeholder = "Full name")
 age = st.sidebar.slider("Age", 18, 100, 30)
 bmi = st.sidebar.slider("BMI", 10.0, 50.0, 24.0)
 children = st.sidebar.selectbox("Children", [0, 1, 2, 3, 4, 5])
