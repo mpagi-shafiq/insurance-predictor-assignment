@@ -9,7 +9,7 @@ st.set_page_config(page_title="FiqHaks Predictor", page_icon="", layout="wide")
 # Load Model
 @st.cache_resource
 def load_model():
-    with open("insurance premium/insurance_model.pkl", "rb") as f:
+    with open("insurance_model.pkl", "rb") as f:
         return pickle.load(f)
 
 model = load_model()
