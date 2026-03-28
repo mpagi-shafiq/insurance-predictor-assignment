@@ -113,9 +113,11 @@ else:
 hide_streamlit_style = """
                         <style>
                         #Mainmenu {visibility:hidden;}
-                        header {visibility:visible;}
+                        header {background-color: rgba(0,0,0,0);}
                         footer {visibility:hidden;}
                         .stAppDeployButton {display:none;}
+                        [data-testid="stSidebarNav"] {visibility: visible;}
+                        [data-testid="collapsedControl"] {visibility: visible;}
                         <style>
                       """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
