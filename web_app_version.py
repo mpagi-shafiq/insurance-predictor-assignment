@@ -21,6 +21,9 @@ bmi = st.sidebar.slider("BMI", 10.0, 50.0, 24.0)
 children = st.sidebar.selectbox("Children", [0, 1, 2, 3, 4, 5])
 smoker = st.sidebar.radio("Smoker?", ["No", "Yes"])
 sex = st.sidebar.selectbox("Gender", ["Male", "Female"])
+alcohol = st.sidebar.radio("Do you drink alcohol?", ["No","Yes"])
+occupation = st.sidebar.selectbox("Ocupation risk",["Low risk","High risk"])
+
 
 # Converting to model format
 smoker_val = 1 if smoker == "Yes" else 0
