@@ -4,7 +4,7 @@ import pandas as pd
 import pickle
 
 # Page Configuration
-st.set_page_config(initial_sidebar_state="expanded", page_title="FiqHaks Predictor", page_icon="FiqHaks logo.png", layout="centered")
+st.set_page_config(initial_sidebar_state="expanded", page_title="FiqHaks Predictor", page_icon="FiqHaks logo.png", layout="wide")
 
 # Load Model
 @st.cache_resource
@@ -93,7 +93,7 @@ if final_price > 0:
         st.balloons()
         st.success(f"Excellent choice! Your {selected_plan} plan application is now being processed.")
         
-        # Download logic
+       # Download logic
         summary = f"""
         FIQHAKS PREDICTOR RECEIPT
         Name:   {user_name:}
@@ -113,8 +113,9 @@ else:
 hide_streamlit_style = """
                         <style>
                         #Mainmenu {visibility:hidden;}
+                        header {visibility:visible;}
                         footer {visibility:hidden;}
                         .stAppDeployButton {display:none;}
-                        </style>
+                        <style>
                       """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
