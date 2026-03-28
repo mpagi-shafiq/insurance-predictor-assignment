@@ -4,7 +4,7 @@ import pandas as pd
 import pickle
 
 # Page Configuration
-st.set_page_config(initial_sidebar_state="expanded", page_title="FiqHaks Predictor", page_icon="FiqHaks logo.png",)
+st.set_page_config(initial_sidebar_state="expanded", page_title="FiqHaks Predictor", page_icon="FiqHaks logo.png", layout="centered")
 
 # Load Model
 @st.cache_resource
@@ -94,7 +94,14 @@ if final_price > 0:
         st.success(f"Excellent choice! Your {selected_plan} plan application is now being processed.")
         
         # Download logic
-        summary = f"FiqHaks Predictor Receipt\nName: {user_name:}\nPlan: {selected_plan}\nAge: {age}\nBMI: {bmi}\nSmoker: {smoker}\nTotal: UGX{ugx_price:,.0f}"
+        summary = f"""
+        FIQHAKS PREDICTOR RECEIPT
+        Name:   {user_name:}
+        Plan:   {selected_plan}
+        Age:    {age}
+        BMI:    {bmi}
+        Smoker: {smoker}
+        TOTAL:  UGX{ugx_price:,.0f}"""
         st.download_button("Download Summary", summary, file_name="my_Receipt.txt")
 
 else:
@@ -106,7 +113,6 @@ else:
 hide_streamlit_style = """
                         <style>
                         #Mainmenu {visibility:hidden;}
-                        header {visibility:hidden;}
                         footer {visibility:hidden;}
                         .stAppDeployButton {display:none;}
                         </style>
