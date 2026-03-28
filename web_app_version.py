@@ -4,7 +4,7 @@ import pandas as pd
 import pickle
 
 # Page Configuration
-st.set_page_config(page_title="FiqHaks Predictor", page_icon="", layout="wide")
+st.set_page_config(page_title="FiqHaks Predictor", page_icon="FiqHaks logo.png", layout="wide")
 
 # Load Model
 @st.cache_resource
@@ -16,6 +16,7 @@ model = load_model()
 
 # Sidebar Inputs
 st.sidebar.header("User Profile")
+st.sidebar.image("FiqHaks logo.png", use_container_width=True)
 user_name = st.text_input("Enter your name:",placeholder = "Full name")
 age = st.sidebar.slider("Age", 18, 100, 30)
 bmi = st.sidebar.slider("BMI", 10.0, 50.0, 24.0)
@@ -55,8 +56,8 @@ if final_price > 0:
         st.header(f"UGX{(ugx_price * 0.7):,.0f}")
         st.caption("per year")
         st.write("---")
-        st.write("Emergency Care")
-        st.write("Hospital Stays")
+        st.write("✔ Emergency Care")
+        st.write("✔ Hospital Stays")
         if smoker == "Yes" or bmi > 35:
             st.warning("Best value for your profile")
 
@@ -66,9 +67,9 @@ if final_price > 0:
         st.header(f"UGX{ugx_price:,.0f}")
         st.caption("per year")
         st.write("---")
-        st.write("All Basic Features")
-        st.write("Prescription Drugs")
-        st.write("Dental Cover")
+        st.write("✔ All Basic Features")
+        st.write("✔ Prescription Drugs")
+        st.write("✔ Dental Cover")
         if smoker == "No" and (20 <= bmi <= 30):
             st.info("Recommended for you")
 
@@ -78,9 +79,9 @@ if final_price > 0:
         st.header(f"UGX{(ugx_price * 1.4):,.0f}")
         st.caption("per year")
         st.write("---")
-        st.write("All Standard Features")
-        st.write("International Coverage")
-        st.write("Zero cash Deductible")
+        st.write("✔ All Standard Features")
+        st.write("✔ International Coverage")
+        st.write("✔ Zero cash Deductible")
         if age < 40 and smoker == "No":
             st.success("You qualify for Pro")
 
