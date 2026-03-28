@@ -112,7 +112,7 @@ else:
 hide_streamlit_style = """
                         <style>
                         #Mainmenu {visibility:hidden;}
-                        header {visibility:hidden;}
+                        header {visibility:visible;}
                         footer {visibility:hidden;}
                         .stAppDeployButton {display:none;}
                         </style>
