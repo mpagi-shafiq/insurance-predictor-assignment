@@ -115,10 +115,9 @@ hide_streamlit_style = """
                         #Mainmenu {visibility:hidden;}
                         .stAppDeployButton {display:none;}
                         [data-testid="stHeader"] {background-color: rgba(0,0,0,0);}
-                        [data-testid="stToolbar"] {visibility: hidden;}
                         footer {visibility: hidden;}
-                        [data-testid="stSidebarNav"] {visibility: visible !important;}
-                        [data-testid="collapsedControl"] {visibility: visible !important; color:white;}
+                        [data-testid="stSidebarNav"] {visibility: visible;}
+                        [data-testid="collapsedControl"] {visibility: visible;}
                         <style>
                       """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
