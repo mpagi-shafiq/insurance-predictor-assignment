@@ -37,7 +37,7 @@ st.markdown("""
         margin: 15px 0;
     }
     .recommended {
-        border: 2px solid #3B82F6;
+        border: 1px solid #e6e9ef;
         background-color: #blue;
     }
     </style>
