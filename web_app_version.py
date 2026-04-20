@@ -105,10 +105,10 @@ if model:
     def get_badge(plan_name):
         if plan_name == recommendation:
             return '<span style="background: #blue; color:white; padding: 2px 10px; border-radius:10px; font-size: 12px;">RECOMMENDED</span>'
-        
+        return ''
         # BASIC PLAN
         with col1:
-            st.markdown(f'''{get_badge('BASIC')}
+            st.markdown(f'''{get_badge('BASIC')} 
                 <h3>BASIC</h3>
                 <p>Essential coverage</p>
                 <div class="plan-price">UGX {final_price_ugx * 0.7:,.0f}</div>
