@@ -180,7 +180,3 @@ if model:
             file_name=f"{name}_Quote.txt",
             mime="text/plain"
         )
-
-# Proactive Next Step
-# I have refactored your code to include layout tabs and a wealth calculator. 
-# Would you like to add a **Plotly visual chart** to the Health Insights tab to show BMI vs. National Averages?
