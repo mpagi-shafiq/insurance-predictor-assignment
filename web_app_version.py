@@ -141,7 +141,7 @@ if model:
     #function to show badge only if it matches
     def get_badge(plan_name):
         if plan_name == recommendation:
-            return '<span style="background: #blue; color:white; padding: 2px 10px; border-radius:10px; font-size: 12px;">RECOMMENDED</span>
+            return '<span style="background: #blue; color:white; padding: 2px 10px; border-radius:10px; font-size: 12px;">RECOMMENDED</span>'
     with tab2:
         st.header("Financial Wellness")
         st.write("What if you invested the difference between the Basic and Pro plans?")
