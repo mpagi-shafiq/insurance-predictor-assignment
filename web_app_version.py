@@ -38,7 +38,7 @@ st.markdown("""
     }
     .recommended {
         border: 1px solid #e6e9ef;
-        background-color: #blue;
+        background-color: transparent;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -121,7 +121,6 @@ if model:
         # STANDARD (Recommended)
         with col2:
             st.markdown(f'''{get_badge('STANDARD')} <div class = "plan-card">
-                <span style="background:#3B82F6; color:white; padding:2px 10px; border-radius:10px; font-size:12px;">RECOMMENDED</span>
                 <h3>STANDARD</h3>
                 <p>Family Protection</p>
                 <div class="plan-price">UGX {final_price_ugx:,.0f}</div>
