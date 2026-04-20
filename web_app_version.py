@@ -38,7 +38,7 @@ st.markdown("""
     }
     .recommended {
         border: 2px solid #3B82F6;
-        background-color: #EFF6FF;
+        background-color: #blue;
     }
     </style>
     """, unsafe_allow_html=True)
