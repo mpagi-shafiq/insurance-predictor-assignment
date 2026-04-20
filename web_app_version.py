@@ -96,16 +96,16 @@ if model:
         col1, col2, col3 = st.columns(3)
 
         recommendation = "STANDARD" #default
-    if smoker == "Yes" or bmi > 30 or age > 50:
-        recommendation = "PRO"
-    elif age < 25 and bmi < 25:
-        recommedation = "BASIC"
-
-    #function to show badge only if it matches
-    def get_badge(plan_name):
-        if plan_name == recommendation:
-            return '<span style="background: #blue; color:white; padding: 2px 10px; border-radius:10px; font-size: 12px;">RECOMMENDED</span>'
-        return ''
+        if smoker == "Yes" or bmi > 30 or age > 50:
+            recommendation = "PRO"
+        elif age < 25 and bmi < 25:
+            recommedation = "BASIC"
+    
+        #function to show badge only if it matches
+        def get_badge(plan_name):
+            if plan_name == recommendation:
+                return '<span style="background: #blue; color:white; padding: 2px 10px; border-radius:10px; font-size: 12px;">RECOMMENDED</span>'
+            return ''
         # BASIC PLAN
         with col1:
             st.markdown(f'''{get_badge('BASIC')} <div class = "plan-card">
