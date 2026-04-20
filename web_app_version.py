@@ -22,7 +22,7 @@ st.markdown("""
     
     /* Plan Card Styling */
     .plan-card {
-        background-color: #ffffff;
+        background-color: #blue;
         padding: 25px;
         border-radius: 15px;
         border: 1px solid #e6e9ef;
