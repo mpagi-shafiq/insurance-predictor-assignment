@@ -97,7 +97,7 @@ if model:
         
         # BASIC PLAN
         with col1:
-            st.markdown(f'''<div class="plan-card">
+            st.markdown(f'''{get_badge('BASIC')}
                 <h3>BASIC</h3>
                 <p>Essential coverage</p>
                 <div class="plan-price">UGX {final_price_ugx * 0.7:,.0f}</div>
@@ -109,7 +109,7 @@ if model:
 
         # STANDARD (Recommended)
         with col2:
-            st.markdown(f'''<div class="plan-card recommended">
+            st.markdown(f'''{get_badge('STANDARD')}
                 <span style="background:#3B82F6; color:white; padding:2px 10px; border-radius:10px; font-size:12px;">RECOMMENDED</span>
                 <h3>STANDARD</h3>
                 <p>Family Protection</p>
@@ -122,7 +122,7 @@ if model:
 
         # PRO
         with col3:
-            st.markdown(f'''<div class="plan-card">
+            st.markdown(f'''{get_badge('PRO')}
                 <h3>PRO</h3>
                 <p>Premium Peace of Mind</p>
                 <div class="plan-price">UGX {final_price_ugx * 1.4:,.0f}</div>
@@ -132,6 +132,16 @@ if model:
             </div>''', unsafe_allow_html=True)
             if st.button("Select Pro", key="b3"): st.session_state.plan = "Pro"
 
+    recommendation = "STANDARD" #default
+    if smoker == "Yes" or bmi > 30 or age > 50:
+        recommendation = "PRO"
+    elif age < 25 and bmi < 25:
+        recommedation = "BASIC"
+
+    #function to show badge only if it matches
+    def get_badge(plan_name):
+        if plan_name == recommendation:
+            return '<span style="background: #blue; color:white; padding: 2px 10px; border-radius:10px; font-size: 12px;">RECOMMENDED</span>
     with tab2:
         st.header("Financial Wellness")
         st.write("What if you invested the difference between the Basic and Pro plans?")
