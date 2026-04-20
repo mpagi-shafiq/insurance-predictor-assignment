@@ -108,7 +108,7 @@ if model:
         return ''
         # BASIC PLAN
         with col1:
-            st.markdown(f'''{get_badge('BASIC')} <div class = "card_plan">
+            st.markdown(f'''{get_badge('BASIC')} <div class = "plan-card">
                 <h3>BASIC</h3>
                 <p>Essential coverage</p>
                 <div class="plan-price">UGX {final_price_ugx * 0.7:,.0f}</div>
@@ -120,7 +120,7 @@ if model:
 
         # STANDARD (Recommended)
         with col2:
-            st.markdown(f'''{get_badge('STANDARD')} <div class = "card_plan">
+            st.markdown(f'''{get_badge('STANDARD')} <div class = "plan-card">
                 <span style="background:#3B82F6; color:white; padding:2px 10px; border-radius:10px; font-size:12px;">RECOMMENDED</span>
                 <h3>STANDARD</h3>
                 <p>Family Protection</p>
@@ -133,7 +133,7 @@ if model:
 
         # PRO
         with col3:
-            st.markdown(f'''{get_badge('PRO')} <div class = "card_plan">
+            st.markdown(f'''{get_badge('PRO')} <div class = "plan-card">
                 <h3>PRO</h3>
                 <p>Premium Peace of Mind</p>
                 <div class="plan-price">UGX {final_price_ugx * 1.4:,.0f}</div>
