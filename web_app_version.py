@@ -84,11 +84,11 @@ if final_price > 0:
     selected_plan = st.selectbox("Which plan would you like to proceed with?", ["Basic", "Standard", "Pro"])
 
    # Qualification logic
-    if age < 40 and smoker == "No":
+if age < 40 and smoker == "No":
        available_plans = ["Basic", "Standard", "Pro"]
-    elif age <= 60 and smoker == "No":
+elif age <= 60 and smoker == "No":
        available_plans = ["Basic", "Standard"]
-    else:
+else:
        available_plans = ["Basic"]
 
 selected_plan = st.selectbox("Which plan would you like to proceed with?", available_plans)
