@@ -83,6 +83,12 @@ if final_price > 0:
     st.divider()
     selected_plan = st.selectbox("Which plan would you like to proceed with?", ["Basic", "Standard", "Pro"])
 
+   # Qualification logic
+    qualifies_for_pro = age < 40 and smoker == "No"
+    if selected_plan == "Pro" and not qualifies_for_pro:
+      st.warning("You do not qualify for the Pro plan. Please select Basic or Standard.")
+      st.stop()
+        
     if st.button("Generate My Official Receipt "):
         st.balloons()
         st.success(f"Excellent choice! Your {selected_plan} plan application is now being processed.")
