@@ -77,8 +77,7 @@ if final_price > 0:
             st.write("✔ All Standard Features")
             st.write("✔ International Coverage")
             st.write("✔ Zero Cash Deductible")
-            if age < 40 and smoker == "No":
-                st.success("You qualify for Pro")
+            
     # 7. Final Interactive Element
     st.divider()
    # Qualification logic
@@ -89,7 +88,7 @@ if final_price > 0:
     else:
        available_plans = ["Basic"]
 
-selected_plan = st.selectbox("Which plan would you like to proceed with?", available_plans)
+    selected_plan = st.selectbox("Which plan would you like to proceed with?", available_plans)
         
     if st.button("Generate My Official Receipt "):
         st.balloons()
