@@ -1,192 +1,121 @@
+
 import streamlit as st
 import pandas as pd
 import pickle
-import numpy as np
-from datetime import datetime
 
-# --- 1. PAGE CONFIGURATION ---
-st.set_page_config(
-    page_title="FiqHaks Predictor | Fin-Health Pro",
-    page_icon="🛡️",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+# Page Configuration
+st.set_page_config(initial_sidebar_state="expanded", page_title="FiqHaks Predictor", page_icon="FiqHaks logo.png", layout="wide")
 
-# --- 2. PROFESSIONAL STYLING (CSS) ---
-st.markdown("""
-    <style>
-    /* Hide Streamlit elements */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    .stAppDeployButton {display:none;}
-    
-    /* Plan Card Styling */
-    .plan-card {
-        background-color: #blue;
-        padding: 25px;
-        border-radius: 15px;
-        border: 1px solid #e6e9ef;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        text-align: center;
-        height: 100%;
-    }
-    .plan-price {
-        color: #1E3A8A;
-        font-size: 24px;
-        font-weight: bold;
-        margin: 15px 0;
-    }
-    .recommended {
-        border: 1px solid #e6e9ef;
-        background-color: transparent;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-# --- 3. MODEL & DATA LOADING ---
+# Load Model
 @st.cache_resource
-def load_assets():
-    try:
-        with open("insurance_model.pkl", "rb") as f:
-            model = pickle.load(f)
-        return model
-    except FileNotFoundError:
-        st.error("Model file not found. Please ensure 'insurance_model.pkl' exists.")
-        return None
+def load_model():
+    with open("insurance_model.pkl", "rb") as f:
+        return pickle.load(f)
 
-model = load_assets()
-EXCHANGE_RATE = 3700
+model = load_model()
 
-# --- 4. SIDEBAR INPUTS ---
-with st.sidebar:
-    st.image("FiqHaks logo.png", width=150)
-    st.header("👤 User Profile")
-    
-    name = st.text_input("Full Name", placeholder="Enter your name")
-    age = st.slider("Age", 18, 100, 25)
-    bmi = st.slider("BMI", 10.0, 50.0, 24.0)
-    children = st.selectbox("Children", [0, 1, 2, 3, 4, 5])
-    sex = st.radio("Gender", ["Male", "Female"], horizontal=True)
-    smoker = st.radio("Smoker?", ["No", "Yes"], horizontal=True)
-    alcohol = st.radio("Drink Alcohol?", ["No", "Yes"], horizontal=True)
-    occupation = st.selectbox("Occupation Risk", ["Low risk", "High risk"])
+# Sidebar Inputs
+st.sidebar.header("User Profile")
+st.sidebar.image("FiqHaks logo.png", use_container_width=True)
+user_name = st.sidebar.text_input("Enter your name:",placeholder = "Full name")
+age = st.sidebar.slider("Age", 18, 100, 30)
+bmi = st.sidebar.slider("BMI", 10.0, 50.0, 24.0)
+children = st.sidebar.selectbox("Children", [0, 1, 2, 3, 4, 5])
+smoker = st.sidebar.radio("Smoker?", ["No", "Yes"])
+sex = st.sidebar.selectbox("Gender", ["Male", "Female"])
+alcohol = st.sidebar.radio("Do you drink alcohol?", ["No","Yes"])
+occupation = st.sidebar.selectbox("Ocupation risk",["Low risk","High risk"])
 
-# --- 5. CORE LOGIC ---
-if model:
-    # Prepare Data
-    sex_val = 1 if sex == "Male" else 0
-    smoker_val = 1 if smoker == "Yes" else 0
-    
-    input_df = pd.DataFrame([{
-        'age': age, 'sex': sex_val, 'bmi': bmi, 
-        'children': children, 'smoker': smoker_val
-    }])
-    
-    # Prediction
-    base_prediction = model.predict(input_df)[0]
-    final_price_ugx = max(0, base_prediction * EXCHANGE_RATE)
 
-    # --- 6. DASHBOARD TABS ---
-    tab1, tab2, tab3 = st.tabs(["🛡️ Insurance Plans", "📈 Wealth Growth", "🏥 Health Insights"])
+# Converting to model format
+smoker_val = 1 if smoker == "Yes" else 0
+sex_val = 1 if sex == "Male" else 0
 
-    with tab1:
-        st.title("Smart Plan Selector")
-        st.markdown(f"**Welcome, {name if name else 'Valued Client'}**. Based on your profile, here are your qualified plans:")
-        
-        col1, col2, col3 = st.columns(3)
+# Prediction Logic
+input_df = pd.DataFrame([[age, sex_val, bmi, children, smoker_val]], 
+                        columns=['age', 'sex', 'bmi', 'children', 'smoker'])
+base_prediction = model.predict(input_df)[0]
+final_price = max(0, base_prediction)
 
-        recommendation = "STANDARD" #default
-        if smoker == "Yes" or bmi > 30 or age > 50:
-            recommendation = "PRO"
-        elif age < 25 and bmi < 25:
-            recommedation = "BASIC"
-    
-        #function to show badge only if it matches
-        def get_badge(plan_name):
-            if plan_name == recommendation:
-                return '<span style="background: #blue; color:white; padding: 2px 10px; border-radius:10px; font-size: 12px;">RECOMMENDED</span>'
-            return ''
-        # BASIC PLAN
-        with col1:
-            st.markdown(f'''{get_badge('BASIC')} <div class = "plan-card">
-                <h3>BASIC</h3>
-                <p>Essential coverage</p>
-                <div class="plan-price">UGX {final_price_ugx * 0.7:,.0f}</div>
-                <p style="font-size: 0.8em;">Per Year</p>
-                <hr>
-                <p>✔️ Emergency Care<br>✔️ Hospital Stays</p>
-            </div>''', unsafe_allow_html=True)
-            if st.button("Select Basic", key="b1"): st.session_state.plan = "Basic"
-
-        # STANDARD (Recommended)
-        with col2:
-            st.markdown(f'''{get_badge('STANDARD')} <div class = "plan-card">
-                <h3>STANDARD</h3>
-                <p>Family Protection</p>
-                <div class="plan-price">UGX {final_price_ugx:,.0f}</div>
-                <p style="font-size: 0.8em;">Per Year</p>
-                <hr>
-                <p>✔️ All Basic Features<br>✔️ Dental & Vision</p>
-            </div>''', unsafe_allow_html=True)
-            if st.button("Select Standard", key="b2"): st.session_state.plan = "Standard"
-
-        # PRO
-        with col3:
-            st.markdown(f'''{get_badge('PRO')} <div class = "plan-card">
-                <h3>PRO</h3>
-                <p>Premium Peace of Mind</p>
-                <div class="plan-price">UGX {final_price_ugx * 1.4:,.0f}</div>
-                <p style="font-size: 0.8em;">Per Year</p>
-                <hr>
-                <p>✔️ Global Coverage<br>✔️ Zero Deductible</p>
-            </div>''', unsafe_allow_html=True)
-            if st.button("Select Pro", key="b3"): st.session_state.plan = "Pro"
-
-    with tab2:
-        st.header("Financial Wellness")
-        st.write("What if you invested the difference between the Basic and Pro plans?")
-        
-        savings = (final_price_ugx * 1.4) - (final_price_ugx * 0.7)
-        years = 10
-        growth_rate = 0.10 # 10% annual return
-        future_value = savings * (((1 + growth_rate) ** years - 1) / growth_rate)
-        
-        c1, c2 = st.columns(2)
-        c1.metric("Annual Potential Savings", f"UGX {savings:,.0f}")
-        c2.metric("Projected 10-Year Wealth", f"UGX {future_value:,.0f}")
-        
-        st.info("💡 Investing the premium difference into a diversified fund can significantly boost your net worth.")
-
-    with tab3:
-        st.header("Personalized Health Report")
-        if bmi > 25:
-            st.warning(f"Your BMI is {bmi}. Reducing this to 24 could lower your premiums by approximately 15%.")
-        else:
-            st.success("Your BMI is in the healthy range. You are eligible for our lowest rate tiers.")
-        
-        if smoker == "Yes":
-            st.error("🚭 Smoking status is the highest driver of your premium cost.")
-
-    # --- 7. FINAL RECEIPT & DOWNLOAD ---
+if final_price > 0:
+    # Header
+    st.title("FiqHaks Predictor: Smart Plan Selector")
+    st.markdown(f"Based on your profile, here are the plans you qualify for:")
     st.divider()
-    if 'plan' in st.session_state:
-        st.success(f"Excellent choice! Your {st.session_state.plan} plan is being processed.")
+
+    #currency conversion
+    exchange_rate = 3700
+    ugx_price = final_price*exchange_rate
+
+    # Insurance plan logic
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.subheader("BASIC")
+        st.write("Essential coverage for emergencies.")
+        st.header(f"UGX{(ugx_price * 0.7):,.0f}")
+        st.caption("per year")
+        st.write("---")
+        st.write("✔ Emergency Care")
+        st.write("✔ Hospital Stays")
+        if smoker == "Yes" or bmi > 35:
+            st.warning("Best value for your profile")
+
+    with col2:
+        st.subheader("STANDARD")
+        st.write("Balanced protection for families.")
+        st.header(f"UGX{ugx_price:,.0f}")
+        st.caption("per year")
+        st.write("---")
+        st.write("✔ All Basic Features")
+        st.write("✔ Prescription Drugs")
+        st.write("✔ Dental Cover")
+        if smoker == "No" and (20 <= bmi <= 30):
+            st.info("Recommended for you")
+
+    with col3:
+        st.subheader("PRO")
+        st.write("Full premium peace of mind.")
+        st.header(f"UGX{(ugx_price * 1.4):,.0f}")
+        st.caption("per year")
+        st.write("---")
+        st.write("✔ All Standard Features")
+        st.write("✔ International Coverage")
+        st.write("✔ Zero cash Deductible")
+        if age < 40 and smoker == "No":
+            st.success("You qualify for Pro")
+
+    # 7. Final Interactive Element
+    st.divider()
+    selected_plan = st.selectbox("Which plan would you like to proceed with?", ["Basic", "Standard", "Pro"])
+
+    if st.button("Generate My Official Receipt "):
+        st.balloons()
+        st.success(f"Excellent choice! Your {selected_plan} plan application is now being processed.")
         
-        receipt_text = f"""
-        FIQHAKS PREDICTOR OFFICIAL RECEIPT
-        Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}
-        -----------------------------------
-        Client Name: {name}
-        Selected Plan: {st.session_state.plan}
-        Age: {age} | BMI: {bmi}
-        Annual Premium: UGX {final_price_ugx:,.0f}
-        -----------------------------------
-        Support: fiqhaks.company@gmail.com
-        """
-        
-        st.download_button(
-            label="📄 Download Official Quote",
-            data=receipt_text,
-            file_name=f"{name}_Quote.txt",
-            mime="text/plain"
-        )
+       # Download logic
+        summary = f"""
+        FIQHAKS PREDICTOR RECEIPT
+        Name:   {user_name:}
+        Plan:   {selected_plan}
+        Age:    {age}
+        BMI:    {bmi}
+        Smoker: {smoker}
+        TOTAL:  UGX{ugx_price:,.0f}"""
+        st.download_button("Download Summary", summary, file_name="my_Receipt.txt")
+
+else:
+    st.error("Application Status: Not eligible")
+    st.markdown("""We regret to inform you that based on the current profile, we can't offer you a quote.""")
+    st.info("Please contact our support team at fiqhaks.company@gmail.com")
+
+
+hide_streamlit_style = """
+                        <style>
+                        #Mainmenu {visibility:hidden;}
+                        header {visibility:visible;}
+                        footer {visibility:hidden;}
+                        .stAppDeployButton {display:none;}
+                        </style>
+                      """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
