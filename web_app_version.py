@@ -81,15 +81,13 @@ if final_price > 0:
     # 7. Final Interactive Element
     st.divider()
    # Qualification logic
-    if age < 40 and smoker == "No":
-       available_plans = ["Basic", "Standard", "Pro"]
-    elif age <= 60 and smoker == "No":
+    if smoker == "Yes" or age > 60 or bmi > 35:
        available_plans = ["Basic", "Standard"]
     else:
-       available_plans = ["Basic"]
+       available_plans = ["Basic", "Standard", "Pro"]
 
     selected_plan = st.selectbox("Which plan would you like to proceed with?", available_plans)
-        
+    
     if st.button("Generate My Official Receipt "):
         st.balloons()
         st.success(f"Excellent choice! Your {selected_plan} plan application is now being processed.")
