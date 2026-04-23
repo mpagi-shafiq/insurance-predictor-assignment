@@ -50,41 +50,35 @@ if final_price > 0:
     # Insurance plan logic
     col1, col2, col3 = st.columns(3)
 
-    with col1:
-        st.subheader("BASIC")
-        st.write("Essential coverage for emergencies.")
-        st.header(f"UGX{(ugx_price * 0.7):,.0f}")
+with col1:
+    with st.container(border=True):
+        st.subheader("Basic")
+        st.header(f"UGX{ugx_price * 0.6:,.0f}")
         st.caption("per year")
-        st.write("---")
-        st.write("✔ Emergency Care")
-        st.write("✔ Hospital Stays")
-        if smoker == "Yes" or bmi > 35:
-            st.warning("Best value for your profile")
+        st.write("✔ Hospital Cash Benefit")
+        st.write("✔ Accident Cover")
+        st.write("✔ Basic Outpatient")
 
-    with col2:
-        st.subheader("STANDARD")
-        st.write("Balanced protection for families.")
+with col2:
+    with st.container(border=True):
+        st.subheader("Standard")
         st.header(f"UGX{ugx_price:,.0f}")
         st.caption("per year")
-        st.write("---")
         st.write("✔ All Basic Features")
-        st.write("✔ Prescription Drugs")
-        st.write("✔ Dental Cover")
-        if smoker == "No" and (20 <= bmi <= 30):
-            st.info("Recommended for you")
+        st.write("✔ Specialist Visits")
+        st.write("✔ Dental & Optical")
+        st.write("✔ Maternity Cover")
 
-    with col3:
-        st.subheader("PRO")
-        st.write("Full premium peace of mind.")
-        st.header(f"UGX{(ugx_price * 1.4):,.0f}")
+with col3:
+    with st.container(border=True):
+        st.subheader("Pro")
+        st.header(f"UGX{ugx_price * 1.4:,.0f}")
         st.caption("per year")
-        st.write("---")
         st.write("✔ All Standard Features")
         st.write("✔ International Coverage")
-        st.write("✔ Zero cash Deductible")
+        st.write("✔ Zero Cash Deductible")
         if age < 40 and smoker == "No":
             st.success("You qualify for Pro")
-
     # 7. Final Interactive Element
     st.divider()
     selected_plan = st.selectbox("Which plan would you like to proceed with?", ["Basic", "Standard", "Pro"])
