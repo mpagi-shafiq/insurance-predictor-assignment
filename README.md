@@ -15,9 +15,13 @@ Instant Documentation: Allows users to download an official summary receipt of t
 
 ## 📂 Project Components
 web_app_version.py: The core application logic and Streamlit interface.
+
 insurance_model.pkl: The predictive engine used for premium calculations.
+
 requirements.txt: Necessary libraries to run the environment.
+
 FiqHaks logo.png: Official application branding assets.
+
 .devcontainer: Environment configuration for developers.
 
 ## 🚀 Getting Started
