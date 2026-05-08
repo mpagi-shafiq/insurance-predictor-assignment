@@ -3,10 +3,14 @@
 FiqHaks Predictor is an intelligent web application designed to simplify insurance premium estimation. By processing user data through a machine learning model, the app provides real-time quotes and helps users choose the most suitable coverage plan for their needs.
 
 ## 🌟 Key Highlights
-Smart Estimations: Generates instant quotes using a trained machine learning backend (insurance_model.pkl).
+Smart Estimations: Generates instant quotes using a trained machine learning backend (insurance_model.pkl). 
+
 Plan Customization: Offers three distinct coverage tiers—Basic, Standard, and Pro.
+
 Localized Pricing: Calculations are automatically converted into Ugandan Shillings (UGX).
+
 Risk Assessment: Built-in safety logic limits plan availability based on age, BMI, and smoking status.
+
 Instant Documentation: Allows users to download an official summary receipt of their chosen plan.
 
 ## 📂 Project Components
